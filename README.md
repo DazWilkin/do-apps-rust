@@ -23,23 +23,28 @@ Use nightly for this (!) project only:
 ```bash
 cd ${HOME}/Projects/do-apps-rust
 rustup override set nightly
-cargo run
+PORT=8888 cargo run
 ```
 
 Or:
 
 ```bash
-docker build --tag=do-apps-rust --file=./Dockerfile .
+docker build \
+--tag=do-apps-rust \
+--file=./Dockerfile \
+.
 ```
 
 Then:
 
 ```bash
 CONT=7777
+HOST=8888
+
 docker run \
 --interactive --tty \
 --env=PORT=${CONT} \
---publish=8888:${CONT} \
+--publish=${HOST}:${CONT} \
 do-apps-rust
 ```
 
@@ -47,10 +52,10 @@ do-apps-rust
 
 Then e.g.:
 
-+ `http://localhost/hello/freddie/2`
-+ `http://localhost/env`
-+ `http://localhost/headers`
-+ `http://localhost/healthz`
-+ `http://localhost/metrics`
++ `http://localhost:8888/hello/freddie/2`
++ `http://localhost:8888/env`
++ `http://localhost:8888/headers`
++ `http://localhost:8888/healthz`
++ `http://localhost:8888/metrics`
 
 
