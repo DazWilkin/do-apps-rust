@@ -1,0 +1,7 @@
+name: do-apps-rust
+services:
+  - name: web
+    dockerfile_path: Dockerfile
+    github:
+      repo: DazWilkin/do-apps-rust
+      branch: master
