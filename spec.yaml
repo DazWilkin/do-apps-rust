@@ -1,0 +1,16 @@
+name: do-apps-rust
+region: nyc
+services:
+  - dockerfile_path: Dockerfile
+    github:
+      branch: master
+      deploy_on_push: true
+      repo: DazWilkin/do-apps-rust
+    health_check:
+      http_path: /healthz
+    http_port: 8080
+    instance_count: 1
+    instance_size_slug: basic-xxs
+    name: do-apps-rust
+    routes:
+      - path: /
