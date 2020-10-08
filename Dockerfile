@@ -1,16 +1,8 @@
-# Globals
-ARG PROJ=do-apps-rust
-ARG PORT=8080
-
-# Builder
 FROM rustlang/rust:nightly-slim as builder
 
-# 'Import' Global ARG
-ARG PROJ
+RUN USER=root cargo new --bin do-apps-rust
 
-RUN USER=root cargo new --bin ${PROJ}
-
-WORKDIR /${PROJ}
+WORKDIR /do-apps-rust
 
 COPY ./Cargo.toml ./Cargo.toml
 RUN cargo build --release
@@ -18,23 +10,17 @@ RUN rm src/*.rs
 
 ADD . ./
 
-# Replace the project's hyphens with underscores
-# Stackoverflow: https://stackoverflow.com/a/61827679/609290
-RUN /bin/bash -c 'rm ./target/release/deps/${PROJ//-/_}*'
+RUN rm ./target/release/deps/do_apps_rust*
 
 RUN cargo build --release
 
 
-# Runtime
 FROM debian:buster-slim as runtime
 
-# 'Import' Global ARG
-ARG PROJ
-ARG PORT
+WORKDIR /bin
 
-WORKDIR /app
-
-COPY --from=builder /${PROJ}/target/release/${PROJ} ./x
+# Copy from builder and rename to 'server'
+COPY --from=builder /do-apps-rust/target/release/do-apps-rust ./server
 
 RUN apt-get update \
     && apt-get install -y ca-certificates tzdata \
@@ -45,10 +31,8 @@ ENV TZ=Etc/UTC \
 
 RUN groupadd ${USER} \
     && useradd -g ${USER} ${USER} && \
-    chown -R ${USER}:${USER} /app
+    chown -R ${USER}:${USER} /bin
 
 USER ${USER}
 
-EXPOSE ${PORT}
-
-ENTRYPOINT ["./x"]
+ENTRYPOINT ["./server"]
