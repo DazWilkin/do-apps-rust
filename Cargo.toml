@@ -1,0 +1,9 @@
+[package]
+name = "do-apps-rust"
+version = "0.1.0"
+authors = ["DazWilkin <daz.wilkin@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+rocket = "0.4.5"
+rocket_prometheus = "0.7.0"
