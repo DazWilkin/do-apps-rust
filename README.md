@@ -4,11 +4,6 @@ Blog: https://pretired.dazwilkin.com/posts/201008/
 
 Using [rocket](https://crates.io/crates/rocket) and [rocket-prometheus](https://crates.io/crates/rocket-prometheus)
 
-+ /hello/freddie/2
-+ /envs
-+ /headers
-+ /metrics
-
 Requires nightly:
 
 ```console
