@@ -26,7 +26,26 @@ rustup override set nightly
 cargo run
 ```
 
-Then e.g. 
+Or:
+
+```bash
+docker build --tag=do-apps-rust --file=./Dockerfile .
+```
+
+Then:
+
+```bash
+CONT=7777
+docker run \
+--interactive --tty \
+--env=PORT=${CONT} \
+--publish=8888:${CONT} \
+do-apps-rust
+```
+
+> **NOTE** The server binds to the value of `${PORT}`
+
+Then e.g.:
 
 + `http://localhost/hello/freddie/2`
 + `http://localhost/env`
