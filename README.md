@@ -1,4 +1,4 @@
-# DigitalOcean Apps: Rust (do-apps-rust)
+# DigitalOcean [App Platform](https://www.digitalocean.com/products/app-platform/): Rust
 
 Blog: https://pretired.dazwilkin.com/posts/201008/
 
