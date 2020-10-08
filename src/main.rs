@@ -35,6 +35,11 @@ fn headers(guard: Guard) -> String {
     format!("{:?}", guard.headers)
 }
 
+#[get("/healthz")]
+fn healthz() -> String {
+    format!("OK")
+}
+
 #[derive(Clone, Debug, PartialEq)]
 struct Guard {
     headers: Vec<String>,
@@ -74,7 +79,7 @@ fn main() -> Result<(), ConfigError> {
     rocket::custom(config)
         .attach(prometheus.clone())
         .mount("/metrics", prometheus)
-        .mount("/", routes![cached, default, env, headers, hello])
+        .mount("/", routes![cached, default, env, headers, healthz, hello])
         .launch();
 
     Ok(())
