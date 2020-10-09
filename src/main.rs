@@ -4,7 +4,6 @@
 extern crate rocket;
 
 use rocket::config::{Config, ConfigError, Environment};
-// use rocket::http::Status;
 use rocket::request::{FromRequest, Request};
 
 use rocket_prometheus::PrometheusMetrics;
@@ -27,12 +26,12 @@ fn env() -> String {
     let envs: Vec<String> = std::env::vars()
         .map(|(key, value)| format!("{}: {}", key, value))
         .collect();
-    format!("{:?}", envs)
+    format!("{}", envs.join("\n"))
 }
 
 #[get("/headers")]
 fn headers(guard: Guard) -> String {
-    format!("{:?}", guard.headers)
+    format!("{}", guard.headers.join("\n"))
 }
 
 #[get("/healthz")]
